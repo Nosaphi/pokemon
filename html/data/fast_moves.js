@@ -631,3 +631,5 @@ const fast_moves =
             "type": "Grass"
         }
     ];
+
+export { fast_moves as fastMoves };

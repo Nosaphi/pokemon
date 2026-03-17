@@ -1,4 +1,3 @@
-import { moves } from "./pokemon_moves.js";
 import { fastMoves } from "./fast_moves.js";
 import { chargedMoves } from "./charged_moves.js"; 
 
@@ -18,15 +17,13 @@ class Attack{
     }
 
     fill_attacks(){
-        let attacks = moves.map(move => new Attack(move.id, move.name,
-             move.type, move.power, move.duration_ms))
-        let fast_moves = fastMoves.map(move => new Attack(move.id, move.name,
-             move.type, move.power, move.duration_ms))
-        let charged_moves = chargedMoves.map(move => new Attack(move.id, move.name,
-             move.type, move.power, move.duration_ms))
-        Attack.all_attacks = attacks
+        let fast_attacks = fastMoves.map(move => new Attack(move.move_id, move.name,
+             move.type, move.power, move.duration))
+        let charged_attacks = chargedMoves.map(move => new Attack(move.move_id, move.name,
+             move.type, move.power, move.duration))
+        Attack.all_attacks = fast_attacks.concat(charged_attacks)
     }
 }
-
+Attack.prototype.fill_attacks()
 console.log(Attack.all_attacks)
 console.log("aaaa")
