@@ -1,5 +1,5 @@
-import { Attaque } from "./attaque.js";
-import { Type } from "./type.js";
+import { Attaque } from "./class_attack.js";
+import { Type } from "./class_type.js";
 
 class Pokemon {
     static all_pokemons
