@@ -1,14 +1,18 @@
+import { Type } from "./type.js";
+
 class Types {
     static all_types
     constructor(nom, listeType) {
         this.nom = nom;
         this.listeType = listeType;
-
     }
 
     toString(){
-        return this.nom+" : 1.6 = " + this.listeSuperEfficaces + ", 1.0 = " + this.listeNeutre + ", 0.625 = "
-        + this.listeFaible;
+        let res = this.nom + ": "
+        for (var efficacite in this.listeType) {
+            res = res + efficacite + " = " + this.listeType[efficacite] + ", ";
+        }
+        return res;
     }
 
     fill_types(){
