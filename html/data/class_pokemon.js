@@ -21,12 +21,12 @@ class Pokemon {
     }
 
     getTypes(){
-
-        return types;
+        return this.types;
     }
 
     getAttacks(){
-        let attacks = [];
-        for (let i=0; i<this.att)
+        let attacks = this.attaquesChargées + this.attaquesRapides
+
+        return attacks
     }
 }
