@@ -11,7 +11,7 @@ class Pokemon {
         this.stamina = stamina;
         this.baseAttaque = baseAttaque;
         this.baseDefense = baseDefense;
-        this.types = types;
+        this.getTypes(this.nom);
         this.attaquesRapides = attaquesRapides;
         this.attaquesChargees = attaquesChargees;
     }
@@ -28,8 +28,8 @@ class Pokemon {
     }
 
     getTypes(nom) {
-        const monPokemon = pokemon_types.find(p => p.pokemon_name === nom)?.type;
-        return monPokemon?.type.map(t => new Type(t));
+        const monPokemon = pokemon_types.find(p => p.pokemon_name === nom).type;
+        return monPokemon.type.map(t => new Type(t));
     }
 
     getAttacks(){
