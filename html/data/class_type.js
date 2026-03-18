@@ -4,7 +4,7 @@ class Types {
     static all_types
     constructor(nom) {
         this.nom = nom;
-        this.listeType = typeEff.type_effectiveness[this.nom];
+        this.listeType = type_effectiveness.type_effectiveness[this.nom];
         fill_types()
     }
 
@@ -29,7 +29,7 @@ class Types {
     }
 
     fill_types(){
-        Type.type_effectiveness.forEach(type => {
+        type_effectiveness.type_effectiveness.forEach(type => {
             if(!all_types[type]){
                 all_types.push(type);
             }
@@ -38,4 +38,4 @@ class Types {
 }
 
 Types.prototype.fill_attacks();
-console.table(Type.all_types);
+console.table(Types.all_types);
