@@ -1,10 +1,10 @@
-import { type_effectiveness } from "./type_effectiveness.js";
+import { typeEffectiveness } from "./type_effectiveness.js";
 
 class Types {
     static all_types
     constructor(nom) {
         this.nom = nom;
-        this.listeType = type_effectiveness.type_effectiveness[this.nom];
+        this.listeType = typeEffectiveness[this.nom];
         fill_types()
     }
 
@@ -29,7 +29,7 @@ class Types {
     }
 
     fill_types(){
-        type_effectiveness.type_effectiveness.forEach(type => {
+        typeEffectiveness.forEach(type => {
             if(!all_types[type]){
                 all_types.push(type);
             }
@@ -37,5 +37,5 @@ class Types {
     }
 }
 
-Types.prototype.fill_attacks();
-console.table(Types.all_types);
+Types.prototype.fill_attacks()
+console.table(Types.all_types)
