@@ -1,10 +1,10 @@
-import { Type } from "./type.js";
+import { typeEff } from "./type_effectiveness.js";
 
 class Types {
     static all_types
     constructor(nom) {
         this.nom = nom;
-        this.listeType = Type.type_effectiveness[this.nom];
+        this.listeType = typeEff.type_effectiveness[this.nom];
         fill_types()
     }
 
@@ -37,5 +37,5 @@ class Types {
     }
 }
 
-Type.fill_attacks()
-console.table(Type.all_types)
+Types.prototype.fill_attacks();
+console.table(Type.all_types);
