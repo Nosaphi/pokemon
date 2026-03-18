@@ -25,6 +25,7 @@ class Attack{
     }
 }
 Attack.prototype.fill_attacks()
-console.log(Attack(1, "Charge", "Normal", 15, 500).toString())
+charge = new Attack(1, "Charge", "Normal", 15, 500)
+console.log(charge.toString())
 console.log(Attack.all_attacks)
 console.log("aaaa")

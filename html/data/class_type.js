@@ -1,5 +1,3 @@
-import { Type } from "./type.js";
-
 class Types {
     static all_types
     constructor(nom) {
