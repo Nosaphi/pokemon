@@ -19,4 +19,3 @@ function getPokemonsByAttack(attackName){
 
 console.log(getPokemonsByAttack("Tackle"))
 
-console.log("trois moutons sur un fil")

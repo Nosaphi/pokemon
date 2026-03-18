@@ -1,6 +1,7 @@
 import { Attack } from "./class_attack.js";
 import { Type } from "./class_type.js";
 import { pokemons } from "./pokemons.js"
+import { pokemonTypes } from "./pokemons_types.js"
 
 class Pokemon {
     static all_pokemons
@@ -26,8 +27,9 @@ class Pokemon {
              pokemon.fast_moves, pokemon.charged_moves))
     }
 
-    getTypes(){
-        return this.types;
+    getTypes(nom) {
+        const monPokemon = pokemon_types.find(p => p.pokemon_name === nom)?.type;
+        return monPokemon?.type.map(t => new Type(t));
     }
 
     getAttacks(){

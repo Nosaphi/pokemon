@@ -28,6 +28,5 @@ Attack.fill_attacks()
 let charge = new Attack(1, "Charge", "Normal", 15, 500)
 console.log(charge.toString())
 console.table(Attack.all_attacks)
-console.log("aaaa")
 
 export {Attack}
