@@ -1,4 +1,4 @@
-import { typeEff } from "./type_effectiveness.js";
+import { type_effectiveness } from "./type_effectiveness.js";
 
 class Types {
     static all_types

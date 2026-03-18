@@ -1,5 +1,5 @@
-import { fastMoves } from "./fast_moves.js";
-import { chargedMoves } from "./charged_moves.js"; 
+import { fast_moves } from "./fast_moves.js";
+import { charged_moves } from "./charged_moves.js"; 
 
 class Attack{
     static all_attacks;
