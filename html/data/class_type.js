@@ -37,5 +37,5 @@ class Types {
     }
 }
 
-Types.prototype.fill_attacks()
+Types.prototype.fill_types()
 console.table(Types.all_types)
