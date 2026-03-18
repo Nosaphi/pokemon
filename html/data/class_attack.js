@@ -17,15 +17,15 @@ class Attack{
     }
 
     fill_attacks(){
-        let fast_attacks = fastMoves.map(move => new Attack(move.move_id, move.name,
+        let fast_attacks = fast_moves.map(move => new Attack(move.move_id, move.name,
              move.type, move.power, move.duration))
-        let charged_attacks = chargedMoves.map(move => new Attack(move.move_id, move.name,
+        let charged_attacks = charged_moves.map(move => new Attack(move.move_id, move.name,
              move.type, move.power, move.duration))
         Attack.all_attacks = fast_attacks.concat(charged_attacks)
     }
 }
 Attack.prototype.fill_attacks()
-charge = new Attack(1, "Charge", "Normal", 15, 500)
+let charge = new Attack(1, "Charge", "Normal", 15, 500)
 console.log(charge.toString())
 console.log(Attack.all_attacks)
 console.log("aaaa")
