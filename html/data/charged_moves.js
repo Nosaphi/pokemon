@@ -1771,3 +1771,4 @@ const charged_moves =
             "type": "Flying"
         }
     ];
+export { charged_moves }
