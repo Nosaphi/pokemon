@@ -1,10 +1,10 @@
-import { Attaque } from "./class_attack.js";
-import { Type } from "./class_type.js";
+import { Attack } from "./class_attack.js";
+import { Types } from "./class_type.js";
 import { pokemons } from "./pokemons.js"
 
 class Pokemon {
     static all_pokemons
-    constructor(id, nom, stamina, baseAttaque, baseDefense, types, attaquesRapides, attaquesChargées) {
+    constructor(id, nom, stamina, baseAttaque, baseDefense, types, attaquesRapides, attaquesChargees) {
         this.id = id;
         this.nom = nom;
         this.stamina = stamina;
@@ -12,13 +12,13 @@ class Pokemon {
         this.baseDefense = baseDefense;
         this.types = types;
         this.attaquesRapides = attaquesRapides;
-        this.attaquesChargées = attaquesChargées;
+        this.attaquesChargees = attaquesChargees;
     }
 
     toString(){
         return this.nom+" : #"+this.id+", ["+this.types+"], [STA: "+this.stamina+
         ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
-        this.attaquesRapides+"], Chargées = ["+this.attaquesChargées+"]";
+        this.attaquesRapides+"], Chargées = ["+this.attaquesChargees+"]";
     }
 
     fill_all_pokemons(){
@@ -31,8 +31,9 @@ class Pokemon {
     }
 
     getAttacks(){
-        let attacks = this.attaquesChargées + this.attaquesRapides
-
+        let attacks = this.attaquesChargees + this.attaquesRapides
         return attacks
     }
 }
+
+export {Pokemon}
