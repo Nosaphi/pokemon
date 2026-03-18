@@ -1,41 +1,43 @@
 import { typeEffectiveness } from "./type_effectiveness.js";
 
-class Types {
-    static all_types
+class Type {
+    static all_types;
+
     constructor(nom) {
         this.nom = nom;
         this.listeType = typeEffectiveness[this.nom];
-        fill_types()
     }
 
-    toString(){
-        efficacite = []
-
-        // Trier les types par efficacité
-        for(const type in this.listeType){
+    toString() {
+        let efficacite = {};
+        
+        // Regrouper les types par efficacité
+        for (const type in this.listeType) {
             const eff = this.listeType[type];
-            if(!efficacite[eff]){
+            if (!efficacite[eff]) {
                 efficacite[eff] = [];
             }
             efficacite[eff].push(type);
         }
 
+        // Trier les valeurs décroissantes
+        const effiTriee = Object.keys(efficacite).map(Number).sort((a, b) => b - a);
 
         let res = this.nom + " : ";
-        for(let effi in efficacite){
-            res = res + effi + " = " + efficacite[effi];
+        for (const effi of effiTriee) {
+            res = res + effi + " = [" + efficacite[effi] + "], ";
         }
-        return res;
-    }
 
-    fill_types(){
-        typeEffectiveness.forEach(type => {
-            if(!all_types[type]){
-                all_types.push(type);
-            }
-        });
+        return res.slice(0, -2); // Enlever la dernière virgule
+    }   
+
+    static fill_types() {
+        Type.all_types = Object.keys(typeEffectiveness).map(nom => new Type(nom));
     }
 }
 
-Types.prototype.fill_types()
-console.table(Types.all_types)
+Type.fill_types(); 
+console.table(Type.all_types);
+
+let tenebre = new Type("Dark");
+console.log(tenebre.toString());
