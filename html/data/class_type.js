@@ -41,3 +41,5 @@ console.table(Type.all_types);
 
 let tenebre = new Type("Dark");
 console.log(tenebre.toString());
+
+export {Types}
