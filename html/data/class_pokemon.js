@@ -1,5 +1,6 @@
 import { Attaque } from "./class_attack.js";
 import { Type } from "./class_type.js";
+import { pokemons } from "./pokemons.js"
 
 class Pokemon {
     static all_pokemons
@@ -18,6 +19,11 @@ class Pokemon {
         return this.nom+" : #"+this.id+", ["+this.types+"], [STA: "+this.stamina+
         ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
         this.attaquesRapides+"], Chargées = ["+this.attaquesChargées+"]";
+    }
+
+    fill_all_pokemons(){
+        Pokemon.all_pokemons = pokemons.map(pokemon => new Pokemon(pokemon.pokemon_id, pokemon.pokemon_name, pokemon.stamina, pokemon.base_attack, pokemon.base_defense, pokemon.type,
+             pokemon.fast_moves, pokemon.charged_moves))
     }
 
     getTypes(){
