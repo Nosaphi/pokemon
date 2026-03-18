@@ -1,5 +1,5 @@
 import {Pokemon} from "../data/class_pokemon.js";
-import {Types} from "../data/class_type.js";
+import {Type} from "../data/class_type.js";
 import {Attack} from "../data/class_attack.js";
 
 function getPokemonsByType(typeName){
@@ -7,8 +7,16 @@ function getPokemonsByType(typeName){
 }
 
 function getPokemonsByAttack(attackName){
-    for(let pokemon in all_pokemons){
-        console.log("aaaaaaaaaaaaaaaaaaaaa")
+    Pokemon.fill_all_pokemons();
+    for (let pokemon of Pokemon.all_pokemons){
+        const toutesLesAttaques = pokemon.getAttacks().flat();
+        if (toutesLesAttaques.includes(attackName)){
+            return pokemon;
+        }
     }
+    return null;
 }
-console.log(getPokemonsByAttack("Flamethrower"))
+
+console.log(getPokemonsByAttack("Tackle"))
+
+console.log("trois moutons sur un fil")
