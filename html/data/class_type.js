@@ -36,3 +36,6 @@ class Types {
         });
     }
 }
+
+Type.fill_attacks()
+console.table(Type.all_types)
