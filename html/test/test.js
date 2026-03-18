@@ -1,5 +1,5 @@
 import {Pokemon} from "../data/class_pokemon.js";
-import {Type} from "../data/class_type.js";
+import {Types} from "../data/class_type.js";
 import {Attack} from "../data/class_attack.js";
 
 function getPokemonsByType(typeName){
@@ -8,8 +8,7 @@ function getPokemonsByType(typeName){
 
 function getPokemonsByAttack(attackName){
     for(let pokemon in all_pokemons){
-        let attaquesDuPokemon = pokemon.getAttacks();
-        console.log(attaques)
+        console.log("aaaaaaaaaaaaaaaaaaaaa")
     }
 }
 console.log(getPokemonsByAttack("Flamethrower"))
