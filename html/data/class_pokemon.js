@@ -68,8 +68,6 @@ console.log(pokemons.find(p => p.pokemon_name === "Bulbasaur" && p.form === "Nor
 let testPokemon = new Pokemon(
     "Bulbasaur",
     "Normal",
-    ["Tackle"],
-    ["Vine Whip"]
 );
 
 console.log(testPokemon.getTypes())
