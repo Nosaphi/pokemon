@@ -5,7 +5,7 @@ import {Attack} from "../data/class_attack.js";
 function getPokemonsByType(typeName){
     return null; 
 }
-
+console.log("neuille")
 function getPokemonsByAttack(attackName) {
     Pokemon.fill_all_pokemons();
     for (let pokemon of Pokemon.all_pokemons) {
