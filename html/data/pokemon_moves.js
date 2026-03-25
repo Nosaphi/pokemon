@@ -17992,4 +17992,4 @@ const pokemon_moves =
         }
     ];
 
-export { pokemon_moves as moves };
+export { pokemon_moves };
