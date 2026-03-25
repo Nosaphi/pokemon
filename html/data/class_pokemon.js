@@ -40,17 +40,7 @@ class Pokemon {
 
     static fill_all_pokemons() {
         Pokemon.all_pokemons = pokemons.map(pokemon => {
-<<<<<<< HEAD
             new Pokemon(pokemon.pokemon_name, pokemon.form);
-=======
-
-            let p = new Pokemon(
-                pokemon.pokemon_name,
-                pokemon.form,
-            );
-            p.getTypes();
-            p.getAttacks();
->>>>>>> cb4a6f770b9b5edd1d6ba4051c900b8e4f8c1188
         });
     }
 
