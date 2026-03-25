@@ -6,12 +6,13 @@ import { pokemon_types } from "./pokemon_types.js";
 
 class Pokemon {
     static all_pokemons
-    constructor(id, nom, attaquesRapides, attaquesChargees) {
+    constructor(id, nom, forme, attaquesRapides, attaquesChargees) {
         this.id = id;
         this.nom = nom;
-        this.stamina = pokemons.find(p => p.pokemon_name === this.nom).base_stamina;
-        this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom).base_attack;
-        this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom).base_defense;
+        this.form = forme;
+        this.stamina = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_stamina;
+        this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_attack;
+        this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_defense;
         this.types = []
         this.attaquesRapides = attaquesRapides;
         this.attaquesChargees = attaquesChargees;
@@ -57,7 +58,7 @@ class Pokemon {
     }
 
     getTypes(){
-        const monPokemon = pokemon_types.find(p => p.pokemon_name === this.nom);
+        const monPokemon = pokemon_types.find(p => p.pokemon_name === this.nom && p.form === this.forme);
         let types = monPokemon.type.map(t => new Type(t));
         this.types = types;
         return types;
