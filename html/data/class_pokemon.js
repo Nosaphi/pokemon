@@ -7,7 +7,6 @@ import { pokemon_types } from "./pokemon_types.js";
 class Pokemon {
     static all_pokemons
     constructor(nom, forme, attaquesRapides, attaquesChargees) {
-        //this.id = id;
         this.nom = nom;
         this.form = forme;
         this.id = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).pokemon_id;
@@ -46,7 +45,6 @@ class Pokemon {
             );
 
             return new Pokemon(
-                pokemon.pokemon_id,
                 pokemon.pokemon_name,
                 pokemon.form,
                 typeData ? typeData.type : [],

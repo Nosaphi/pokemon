@@ -18,5 +18,5 @@ function getPokemonsByAttack(attackName) {
     }
     return listePokemon;
 }
-console.log(getPokemonsByAttack("Take Down"))
+console.log(getPokemonsByAttack("Tackle"))
 
