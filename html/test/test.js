@@ -17,5 +17,5 @@ function getPokemonsByAttack(attackName) {
     }
     return null;
 }
-console.log(getPokemonsByAttack("Flamethrower"))
+console.log(getPokemonsByAttack("flamethrower"))
 
