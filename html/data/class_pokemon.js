@@ -8,7 +8,7 @@ import { charged_moves } from "./charged_moves.js";
 
 class Pokemon {
     static all_pokemons
-    constructor(nom, forme, attaquesRapides, attaquesChargees) {
+    constructor(nom, forme) {
         this.nom = nom;
         this.form = forme;
         this.id = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).pokemon_id;
@@ -16,8 +16,10 @@ class Pokemon {
         this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_attack;
         this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_defense;
         this.types = [];
-        this.attaquesRapides = attaquesRapides;
-        this.attaquesChargees = attaquesChargees;
+        this.attaquesRapides = [];
+        this.attaquesChargees = [];
+        this.getAttacks();
+        this.getTypes();
     }
 
     toString(){
@@ -39,16 +41,7 @@ class Pokemon {
 
     static fill_all_pokemons() {
         Pokemon.all_pokemons = pokemons.map(pokemon => {
-
-            let p = new Pokemon(
-                pokemon.pokemon_name,
-                pokemon.form,
-                typeData ? typeData.type : [],
-                moveData ? moveData.fast_moves : [],
-                moveData ? moveData.charged_moves : []
-            );
-            p.getTypes();
-            p.getAttacks();
+            new Pokemon(pokemon.pokemon_name, pokemon.form);
         });
     }
 
@@ -61,8 +54,8 @@ class Pokemon {
 
     getAttacks(){
         const monPokemon = pokemon_moves.find(p => p.pokemon_name === this.nom && p.form === this.form);
-
         let dataAR = monPokemon.fast_moves.map(f => fast_moves.find(m => m.name === f));
+        console.table(dataAR);
         let attaquesRapides = dataAR.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesRapides = attaquesRapides; 
 
@@ -74,6 +67,7 @@ class Pokemon {
         return [attaquesRapides, attaquesChargees];
     }
 }
-
+Pokemon.fill_all_pokemons();
+console.table(Pokemon.all_pokemons);
 
 export {Pokemon}

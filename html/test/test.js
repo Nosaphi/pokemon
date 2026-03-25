@@ -4,21 +4,7 @@ import {Attack} from "../data/class_attack.js";
 
 
 console.log("neuille")
-// function getPokemonsByAttack(attackName) {
-//     Pokemon.fill_all_pokemons();
-//     let listePokemon = []
-//     for (let pokemon of Pokemon.all_pokemons) {
-//         const toutesLesAttaques = pokemon.getAttacks().flat();
-//         for (let attaque of toutesLesAttaques){
-//             console.log(attaque)
-//             if (attaque.includes(attackName)) {
-//                 listePokemon.push(pokemon)
-//                 break
-//             }
-//         }
-//     }
-//     return listePokemon;
-// }
+
 
 function getPokemonsByType(typeName){
     Pokemon.fill_all_pokemons();
@@ -35,7 +21,7 @@ function getPokemonsByType(typeName){
     return listePokemon;
 }
 
-function getAttacks(attackName){
+function getPokemonByAttacks(attackName){
     Pokemon.fill_all_pokemons();
     let listePokemon = []
     for (let pokemon of Pokemon.all_pokemons) {
@@ -52,4 +38,4 @@ function getAttacks(attackName){
 
 // console.log(getAttacks("Tackle"))
 console.log(getPokemonsByType("water"))
-
+console.log(getPokemonByAttacks());
