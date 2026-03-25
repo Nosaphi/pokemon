@@ -3,6 +3,8 @@ import { Type } from "./class_type.js";
 import { pokemons } from "./pokemons.js";
 import { pokemon_moves } from './pokemon_moves.js'
 import { pokemon_types } from "./pokemon_types.js";
+import { fast_moves } from "./fast_moves.js";
+import { charged_moves } from "./charged_moves.js";
 
 class Pokemon {
     static all_pokemons
@@ -37,13 +39,14 @@ class Pokemon {
 
     static fill_all_pokemons() {
         Pokemon.all_pokemons = pokemons.map(pokemon => {
-            
+
             let p = new Pokemon(
                 pokemon.pokemon_name,
                 pokemon.form,
             );
-            p.getAttacks();
             p.getTypes();
+            p.getAttacks();
+            // console.log(p.toString());
         });
     }
 
@@ -56,18 +59,24 @@ class Pokemon {
 
     getAttacks(){
         const monPokemon = pokemon_moves.find(p => p.pokemon_name === this.nom && p.form === this.form);
-        let attaquesChargees = monPokemon.charged_moves.map(m => new Attack(m));
-        this.attaquesChargees = attaquesChargees; 
-        let attaquesRapides = monPokemon.fast_moves.map(m => new Attack(m));
+
+        let dataAR = monPokemon.fast_moves.map(f => fast_moves.find(m => m.name === f));
+        let attaquesRapides = dataAR.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesRapides = attaquesRapides; 
-        return attaquesRapides, attaquesChargees;
+
+
+        let dataAC = monPokemon.charged_moves.map(f => charged_moves.find(m => m.name === f));
+        let attaquesChargees = dataAC.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
+        this.attaquesChargees = attaquesChargees; 
+        
+        return [attaquesRapides, attaquesChargees];
     }
 }
 
-console.log(pokemons.find(p => p.pokemon_name === "Bulbasaur" && p.form === "Normal").base_attack)
+//console.log(Pokemon.fill_all_pokemons());
 let testPokemon = new Pokemon(
     "Bulbasaur",
-    "Normal",
+    "Normal"
 );
 
 console.log(testPokemon.getTypes())
