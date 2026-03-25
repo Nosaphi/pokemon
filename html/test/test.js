@@ -12,8 +12,10 @@ function getPokemonsByAttack(attackName) {
     for (let pokemon of Pokemon.all_pokemons) {
         const toutesLesAttaques = pokemon.getAttacks().flat();
         console.log(toutesLesAttaques)
-        if (toutesLesAttaques.includes(attackName)) {
-            listePokemon.push(pokemon)
+        for (let attaque of toutesLesAttaques){
+            if (attaque.includes(attackName)) {
+                listePokemon.push(pokemon)
+            }
         }
     }
     return listePokemon;
