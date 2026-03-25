@@ -84,21 +84,5 @@ class Pokemon {
 // console.log(testPokemon.getAttacks())
 
 
-let testPokemon = new Pokemon(
-    77,
-    "Ponyta",
-    45,
-    49,
-    49,
-    ["Tackle"],
-    ["Vine Whip"]
-);
-
-console.log(testPokemon.getTypes())
-console.log(testPokemon.toString())
-
-console.log(testPokemon.getAttacks())
-
-
 
 export {Pokemon}
