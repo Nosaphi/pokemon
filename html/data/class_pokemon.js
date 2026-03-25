@@ -7,7 +7,7 @@ import { pokemon_types } from "./pokemon_types.js";
 class Pokemon {
     static all_pokemons
     constructor(id, nom, attaquesRapides, attaquesChargees) {
-        this.id = pokemons.find(p => p.pokemon_name === this.nom).pokemon_id;
+        this.id = id;
         this.nom = nom;
         this.stamina = pokemons.find(p => p.pokemon_name === this.nom).base_stamina;
         this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom).base_attack;
@@ -68,28 +68,9 @@ class Pokemon {
     }
 }
 
-// let testPokemon = new Pokemon(
-//     1,
-//     "Bulbasaur",
-//     45,
-//     49,
-//     49,
-//     ["Grass", "Poison"],
-//     ["Tackle"],
-//     ["Vine Whip"]
-// );
-
-// console.log(testPokemon.toString())
-// console.log(testPokemon.getTypes())
-// console.log(testPokemon.getAttacks())
-
 
 let testPokemon = new Pokemon(
-    1,
     "Bulbasaur",
-    45,
-    49,
-    49,
     ["Tackle"],
     ["Vine Whip"]
 );
