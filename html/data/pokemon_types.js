@@ -9290,4 +9290,4 @@ const pokemon_types =
             ]
         }
     ];
-export { pokemon_types as pokemonTypes };
+    export {pokemon_types};
