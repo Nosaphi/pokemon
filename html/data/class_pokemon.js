@@ -5,12 +5,12 @@ import { pokemon_types } from "./pokemon_types.js";
 
 class Pokemon {
     static all_pokemons
-    constructor(id, nom, stamina, baseAttaque, baseDefense, attaquesRapides, attaquesChargees) {
+    constructor(id, nom, attaquesRapides, attaquesChargees) {
         this.id = id;
         this.nom = nom;
-        this.stamina = stamina;
-        this.baseAttaque = baseAttaque;
-        this.baseDefense = baseDefense;
+        this.stamina = pokemons.find(p => p.pokemon_name === this.nom).base_stamina;
+        this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom).base_attack;
+        this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom).base_defense;
         this.types = []
         this.attaquesRapides = attaquesRapides;
         this.attaquesChargees = attaquesChargees;
@@ -53,8 +53,8 @@ class Pokemon {
 
 
 let testPokemon = new Pokemon(
-    77,
-    "Ponyta",
+    1,
+    "Bulbasaur",
     45,
     49,
     49,
@@ -64,7 +64,6 @@ let testPokemon = new Pokemon(
 
 console.log(testPokemon.getTypes())
 console.log(testPokemon.toString())
-
 console.log(testPokemon.getAttacks())
 
 
