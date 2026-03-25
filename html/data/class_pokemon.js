@@ -46,7 +46,6 @@ class Pokemon {
             );
             p.getTypes();
             p.getAttacks();
-            // console.log(p.toString());
         });
     }
 
@@ -72,17 +71,6 @@ class Pokemon {
         return [attaquesRapides, attaquesChargees];
     }
 }
-
-//console.log(Pokemon.fill_all_pokemons());
-let testPokemon = new Pokemon(
-    "Bulbasaur",
-    "Normal"
-);
-
-console.log(testPokemon.getTypes())
-console.log(testPokemon.toString())
-console.log(testPokemon.getAttacks())
-
 
 
 export {Pokemon}
