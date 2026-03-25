@@ -3,8 +3,8 @@ import { charged_moves } from "./charged_moves.js";
 
 class Attack{
     static all_attacks;
-    constructor(id, nom, type, puissance, duree) {
-        this.id = id;
+    constructor(move_id, nom, type, puissance, duree) {
+        this.move_id = move_id;
         this.nom = nom;
         this.type = type;
         this.puissance = puissance;
