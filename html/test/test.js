@@ -8,14 +8,15 @@ function getPokemonsByType(typeName){
 console.log("neuille")
 function getPokemonsByAttack(attackName) {
     Pokemon.fill_all_pokemons();
+    let listePokemon = []
     for (let pokemon of Pokemon.all_pokemons) {
         const toutesLesAttaques = pokemon.getAttacks().flat();
-        console.log(toutesLesAttaques);
+        console.log(toutesLesAttaques)
         if (toutesLesAttaques.includes(attackName)) {
-            return pokemon;
+            listePokemon.push(pokemon)
         }
     }
-    return null;
+    return listePokemon;
 }
-console.log(getPokemonsByAttack("flamethrower"))
+console.log(getPokemonsByAttack("Take Down"))
 
