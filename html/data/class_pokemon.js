@@ -8,7 +8,7 @@ import { charged_moves } from "./charged_moves.js";
 
 class Pokemon {
     static all_pokemons
-    constructor(nom, forme) {
+    constructor(nom, forme, attaquesRapides, attaquesChargees) {
         this.nom = nom;
         this.form = forme;
         this.id = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).pokemon_id;
@@ -16,8 +16,8 @@ class Pokemon {
         this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_attack;
         this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_defense;
         this.types = [];
-        this.attaquesRapides = [];
-        this.attaquesChargees = [];
+        this.attaquesRapides = attaquesRapides;
+        this.attaquesChargees = attaquesChargees;
     }
 
     toString(){
@@ -43,6 +43,9 @@ class Pokemon {
             let p = new Pokemon(
                 pokemon.pokemon_name,
                 pokemon.form,
+                typeData ? typeData.type : [],
+                moveData ? moveData.fast_moves : [],
+                moveData ? moveData.charged_moves : []
             );
             p.getTypes();
             p.getAttacks();
