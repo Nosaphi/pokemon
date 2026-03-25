@@ -3,7 +3,7 @@ import {Type} from "../data/class_type.js";
 import {Attack} from "../data/class_attack.js";
 
 
-console.log("neuille")
+console.log("Trois moutons suuur un fil")
 // function getPokemonsByAttack(attackName) {
 //     Pokemon.fill_all_pokemons();
 //     let listePokemon = []
@@ -50,6 +50,10 @@ function getAttacks(attackName){
     return listePokemon
 }
 
-// console.log(getAttacks("Tackle"))
-console.log(getPokemonsByType("water"))
+function getAttacksByType(typeName){
+    Attack.fill_attacks();
+}
+
+console.log(getAttacks("Tackle"))
+// console.log(getPokemonsByType("water"))
 

@@ -34,7 +34,6 @@ class Pokemon {
             ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
             this.attaquesRapides+"], Chargées = ["+this.attaquesChargees+"]";
         }
-        
     }
 
     static fill_all_pokemons() {
@@ -43,9 +42,6 @@ class Pokemon {
             let p = new Pokemon(
                 pokemon.pokemon_name,
                 pokemon.form,
-                typeData ? typeData.type : [],
-                moveData ? moveData.fast_moves : [],
-                moveData ? moveData.charged_moves : []
             );
             p.getTypes();
             p.getAttacks();
@@ -70,7 +66,7 @@ class Pokemon {
 
         let dataAC = monPokemon.charged_moves.map(f => charged_moves.find(m => m.name === f));
         let attaquesChargees = dataAC.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
-        this.attaquesChargees = attaquesChargees; 
+        this.attaquesChargees = attaquesChargees;
         
         return [attaquesRapides, attaquesChargees];
     }
