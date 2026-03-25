@@ -10,13 +10,12 @@ function getPokemonsByAttack(attackName) {
     Pokemon.fill_all_pokemons();
     for (let pokemon of Pokemon.all_pokemons) {
         const toutesLesAttaques = pokemon.getAttacks().flat();
-        console.log(toutesLesAttaques); // Ex: ["tackle", "vine_whip"] ?
+        console.log(toutesLesAttaques);
         if (toutesLesAttaques.includes(attackName)) {
             return pokemon;
         }
     }
     return null;
 }
-console.log(getPokemonsByAttack("Tackle"))
+console.log(getPokemonsByAttack("Flamethrower"))
 
-console.log("trois moutons sur un fil")

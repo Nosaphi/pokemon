@@ -1,31 +1,42 @@
 import { Attack } from "./class_attack.js";
 import { Type } from "./class_type.js";
-import { moves } from './pokemon_moves.js'
-import { pokemon_types } from './pokemon_types.js'
-import { pokemons } from "./pokemons.js"
+import { pokemons } from "./pokemons.js";
+import { pokemon_moves } from './pokemon_moves.js'
+import { pokemon_types } from "./pokemon_types.js";
 
 class Pokemon {
     static all_pokemons
-    constructor(id, nom, stamina, baseAttaque, baseDefense, types, attaquesRapides, attaquesChargees) {
+    constructor(id, nom, stamina, baseAttaque, baseDefense, attaquesRapides, attaquesChargees) {
         this.id = id;
         this.nom = nom;
         this.stamina = stamina;
         this.baseAttaque = baseAttaque;
         this.baseDefense = baseDefense;
-        this.types = types;
+        this.types = []
         this.attaquesRapides = attaquesRapides;
         this.attaquesChargees = attaquesChargees;
     }
 
     toString(){
-        return this.nom+" : #"+this.id+", ["+this.types+"], [STA: "+this.stamina+
-        ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
-        this.attaquesRapides+"], Chargées = ["+this.attaquesChargees+"]";
+        if(this.types.length===0){
+            this.getTypes();
+        }
+        else if(this.types.length===1){
+            return this.nom+" : #"+this.id+", ["+this.types[0].nom+"], [STA: "+this.stamina+
+            ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
+            this.attaquesRapides+"], Chargées = ["+this.attaquesChargees+"]";
+        }
+        else{
+            return this.nom+" : #"+this.id+", ["+this.types[0].nom+","+this.types[1].nom+"], [STA: "+this.stamina+
+            ", ATK: "+this.baseAttaque+", DEF: "+this.baseDefense+", Rapides = ["+
+            this.attaquesRapides+"], Chargées = ["+this.attaquesChargees+"]";
+        }
+        
     }
 
     static fill_all_pokemons() {
         Pokemon.all_pokemons = pokemons.map(pokemon => {
-            const moveData = moves.find(m => 
+            const moveData = pokemon_moves.find(m => 
                 m.pokemon_id === pokemon.pokemon_id && m.form === pokemon.form
             );
             const typeData = pokemon_types.find(t => 
@@ -46,7 +57,10 @@ class Pokemon {
     }
 
     getTypes(){
-        return this.types;
+        const monPokemon = pokemon_types.find(p => p.pokemon_name === this.nom);
+        let types = monPokemon.type.map(t => new Type(t));
+        this.types = types;
+        return types;
     }
 
     getAttacks(){
@@ -68,6 +82,22 @@ class Pokemon {
 // console.log(testPokemon.toString())
 // console.log(testPokemon.getTypes())
 // console.log(testPokemon.getAttacks())
+
+
+let testPokemon = new Pokemon(
+    77,
+    "Ponyta",
+    45,
+    49,
+    49,
+    ["Tackle"],
+    ["Vine Whip"]
+);
+
+console.log(testPokemon.getTypes())
+console.log(testPokemon.toString())
+
+console.log(testPokemon.getAttacks())
 
 
 
