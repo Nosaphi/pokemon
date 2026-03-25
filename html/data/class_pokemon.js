@@ -10,10 +10,10 @@ class Pokemon {
         this.id = id;
         this.nom = nom;
         this.form = forme;
-        this.stamina = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_stamina;
-        this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_attack;
-        this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.forme).base_defense;
-        this.types = []
+        this.stamina = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_stamina;
+        this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_attack;
+        this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_defense;
+        this.types = [];
         this.attaquesRapides = attaquesRapides;
         this.attaquesChargees = attaquesChargees;
     }
@@ -58,7 +58,7 @@ class Pokemon {
     }
 
     getTypes(){
-        const monPokemon = pokemon_types.find(p => p.pokemon_name === this.nom && p.form === this.forme);
+        const monPokemon = pokemon_types.find(p => p.pokemon_name === this.nom && p.form === this.form);
         let types = monPokemon.type.map(t => new Type(t));
         this.types = types;
         return types;
@@ -69,9 +69,11 @@ class Pokemon {
     }
 }
 
-
+console.log(pokemons.find(p => p.pokemon_name === "Bulbasaur" && p.form === "Normal").base_attack)
 let testPokemon = new Pokemon(
+    1,
     "Bulbasaur",
+    "Normal",
     ["Tackle"],
     ["Vine Whip"]
 );
