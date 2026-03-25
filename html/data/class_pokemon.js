@@ -6,7 +6,7 @@ import { pokemon_types } from "./pokemon_types.js";
 class Pokemon {
     static all_pokemons
     constructor(id, nom, attaquesRapides, attaquesChargees) {
-        this.id = id;
+        this.id = pokemons.find(p => p.pokemon_name === this.nom).pokemon_id;
         this.nom = nom;
         this.stamina = pokemons.find(p => p.pokemon_name === this.nom).base_stamina;
         this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom).base_attack;
