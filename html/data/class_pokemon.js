@@ -64,7 +64,12 @@ class Pokemon {
     }
 
     getAttacks(){
-        return [this.attaquesRapides, this.attaquesChargees] 
+        const monPokemon = pokemon_moves.find(p => p.pokemon_name === this.nom && p.form === this.form);
+        let attaquesChargees = monPokemon.charged_moves.map(m => new Attack(m));
+        this.attaquesChargees = attaquesChargees; 
+        let attaquesRapides = monPokemon.fast_moves.map(m => new Attack(m));
+        this.attaquesRapides = attaquesRapides; 
+        return attaquesRapides, attaquesChargees;
     }
 }
 
