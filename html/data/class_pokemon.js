@@ -47,6 +47,7 @@ class Pokemon {
             return new Pokemon(
                 pokemon.pokemon_id,
                 pokemon.pokemon_name,
+                pokemon.form,
                 typeData ? typeData.type : [],
                 moveData ? moveData.fast_moves : [],
                 moveData ? moveData.charged_moves : []
