@@ -47,9 +47,6 @@ class Pokemon {
             return new Pokemon(
                 pokemon.pokemon_id,
                 pokemon.pokemon_name,
-                pokemon.base_stamina,
-                pokemon.base_attack,
-                pokemon.base_defense,
                 typeData ? typeData.type : [],
                 moveData ? moveData.fast_moves : [],
                 moveData ? moveData.charged_moves : []
