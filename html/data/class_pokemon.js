@@ -39,9 +39,9 @@ class Pokemon {
     }
 
     static fill_all_pokemons() {
-        Pokemon.all_pokemons = pokemons.map(pokemon => {
-            new Pokemon(pokemon.pokemon_name, pokemon.form);
-        });
+        Pokemon.all_pokemons = pokemons.map(pokemon => 
+            new Pokemon(pokemon.pokemon_name, pokemon.form)
+        );
     }
 
     getTypes(){
@@ -53,8 +53,8 @@ class Pokemon {
 
     getAttacks(){
         const monPokemon = pokemon_moves.find(p => p.pokemon_name === this.nom && p.form === this.form);
+
         let dataAR = monPokemon.fast_moves.map(f => fast_moves.find(m => m.name === f));
-        console.table(dataAR);
         let attaquesRapides = dataAR.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesRapides = attaquesRapides; 
 
@@ -62,11 +62,11 @@ class Pokemon {
         let dataAC = monPokemon.charged_moves.map(f => charged_moves.find(m => m.name === f));
         let attaquesChargees = dataAC.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesChargees = attaquesChargees;
-        
-        return [attaquesRapides, attaquesChargees];
+        let allAttaques = attaquesRapides.concat(attaquesChargees);
+        return allAttaques;
     }
 }
-Pokemon.fill_all_pokemons();
-console.table(Pokemon.all_pokemons);
+// Pokemon.fill_all_pokemons();
+// console.table(Pokemon.all_pokemons);
 
 export {Pokemon}

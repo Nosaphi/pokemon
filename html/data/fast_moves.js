@@ -629,6 +629,15 @@ const fast_moves =
             "power": 16,
             "stamina_loss_scaler": 0.01,
             "type": "Grass"
+        },
+        {
+            "duration": 600,
+            "energy_delta": 6,
+            "move_id": 358,
+            "name": "Struggle",
+            "power": 10,
+            "stamina_loss_scaler": 0.01,
+            "type": "Normal"
         }
     ];
 

@@ -913,7 +913,7 @@ const pokemon_types =
                 "Psychic"
             ]
         },
-        {
+        { 
             "form": "Normal",
             "pokemon_id": 77,
             "pokemon_name": "Ponyta",

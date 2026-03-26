@@ -23,26 +23,28 @@ console.log("Trois moutons suuur un fil")
 function getPokemonsByType(typeName){
     Pokemon.fill_all_pokemons();
     let listePokemon = []
-    for (let pokemon of Pokemon.all_pokemons) {
-        const tousLesTypes = pokemon.getTypes().flat();
-        for (let type of tousLesTypes){
-            console.log(type)
-            if (attaque.includes(typeName)) {
+    for (const pokemon of Pokemon.all_pokemons) {
+        let types = pokemon.getTypes();
+        if(types[0].nom === typeName){
+            listePokemon.push(pokemon)
+        }
+        else if(types.lenght === 2){
+            if(types[1].nom === typeName){
                 listePokemon.push(pokemon)
             }
         }
-    }
+    }  
     return listePokemon;
 }
 
-function getPokemonByAttacks(attackName){
+function getPokemonsByAttack(attackName){
     Pokemon.fill_all_pokemons();
     let listePokemon = []
-    for (let pokemon of Pokemon.all_pokemons) {
-        const toutesLesAttaques = pokemon.getAttacks().flat();
-        for (let attaque of toutesLesAttaques){
+    for (const pokemon of Pokemon.all_pokemons) {
+        let attaques = pokemon.getAttacks();
+        for (let attaque of attaques){
             // console.log(attaque.id)
-            if (attaque.id === attackName){
+            if (attaque.nom === attackName){
                 listePokemon.push(pokemon)
             }
         }
@@ -52,8 +54,34 @@ function getPokemonByAttacks(attackName){
 
 function getAttacksByType(typeName){
     Attack.fill_attacks();
+    let listeAttaque = [];
+    for(const attaques of Attack.all_attacks){
+        if(attaques.type === typeName){
+            listeAttaque.push(attaques)
+        }
+    }
+    return listeAttaque;
 }
 
-console.log(getAttacks("Tackle"))
-// console.log(getPokemonsByType("water"))
+function sortPokemonsByTypeThenName(){
+    // Tri par type
+    Pokemon.fill_all_pokemons();
+    let listePokemon = []
+    let listePokemonTriType = []
+    for (const pokemon of Pokemon.all_pokemons) {
+        if(pokemon.types.lenght===2){
+            if(pokemon.types[0].nom.localeCompare(pokemon.types[1].nom) > 0){
+                let temp = pokemon.types[0];
+                pokemon.types[0]=pokemon.types[1];
+                pokemon.types[1] = temp;
+            }
+        }
+        listePokemon.push(pokemon)
+        listePokemonTriType = listePokemon.map(p => )
+    }
+}
 
+// console.table(getPokemonsByType("Water"))
+// console.table(getPokemonsByAttack("Water Gun"));
+// console.table(getAttacksByType("Fire"));
+sortPokemonsByTypeThenName();
