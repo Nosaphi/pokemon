@@ -65,6 +65,9 @@ class Pokemon {
         let allAttaques = attaquesRapides.concat(attaquesChargees);
         return allAttaques;
     }
+
+
+
 }
 // Pokemon.fill_all_pokemons();
 // console.table(Pokemon.all_pokemons);
