@@ -66,10 +66,60 @@ class Pokemon {
         return allAttaques;
     }
 
+    getWeakestEnemies(attackName){
+        Pokemon.fill_all_pokemons();
+        let listePokemon = [];
+        Attack.fill_attacks();
+        let monAttaque = Attack.all_attacks.find(a => a.nom === attackName);
+        let typeAttaque = new Type(monAttaque.type);
+        let efficaciteMin = -1;                         // Valeure plus petite que l'éfficacité min
+        for (const pokemon of Pokemon.all_pokemons) {
+            let efficacite = typeAttaque.efficaciteContre(pokemon.types[0].nom);
+            if(pokemon.types.length===2){
+                efficacite = efficacite * typeAttaque.efficaciteContre(pokemon.types[1].nom);
+            }
 
+            if(efficacite > efficaciteMin){
+                efficaciteMin = efficacite;
+                listePokemon = [pokemon];
+            }
 
+            else if(efficacite === efficaciteMin){
+                listePokemon.push(pokemon);
+            }
+            
+        }
+        return listePokemon;
+    }
+
+    getBestFastAttacksForEnemy(print, pokemonName){
+        let pokemonEnnemi = pokemons.find(p => p.pokemon_name === pokemonName && p.form === "Normale");
+        let degatsMax=0;
+        let bestAttaque;
+        for(let attaque of this.attaquesRapides){
+            let typeAttaque = attaque.type;
+
+            let efficacite = typeAttaque.efficaciteContre(pokemon.types[0].nom);
+            if(pokemon.types.length===2){
+                efficacite = efficacite * typeAttaque.efficaciteContre(pokemon.types[1].nom);
+            }
+
+            let degats = attaque.puissance * efficacite * (this.baseAttaque / pokemonEnnemi.base_defense)
+            if(degats > degatsMax){
+                degatsMax = degats;
+                bestAttaque = attaque
+            }
+        }
+        if(print){
+            console.log("{atk:"+ this.baseAttaque +", pts:"+ degatsMax +", eff: "+ efficacite + "}")
+        }
+        return bestAttaque;
+    }
 }
-// Pokemon.fill_all_pokemons();
-// console.table(Pokemon.all_pokemons);
+
+
+
+// let p = new Pokemon("Squirtle", "Normal");
+// console.table(p.getWeakestEnemies("Water Gun"));
 
 export {Pokemon}

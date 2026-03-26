@@ -110,35 +110,9 @@ function sortPokemonsByTypeThenName(){
     return listePokemonTrie;
 }
 
-function getWeakestEnemies(attackName){
-    Pokemon.fill_all_pokemons();
-    let listePokemon = [];
-    Attack.fill_attacks();
-    let monAttaque = Attack.all_attacks.find(a => a.nom === attackName);
-    let typeAttaque = new Type(monAttaque.type);
-    let efficaciteMin = -1;                         // Valeure plus petite que l'éfficacité min
-    for (const pokemon of Pokemon.all_pokemons) {
-        let efficacite = typeAttaque.efficaciteContre(pokemon.types[0].nom);
-        if(pokemon.types.length===2){
-            console.log("Et oui j'ai un double type");
-            efficacite = efficacite * typeAttaque.efficaciteContre(pokemon.types[1].nom);
-        }
 
-        if(efficacite > efficaciteMin){
-            efficaciteMin = efficacite;
-            listePokemon = [pokemon];
-        }
-
-        else if(efficacite === efficaciteMin){
-            listePokemon.push(pokemon);
-        }
-        
-    }
-    return listePokemon;
-}
 
 // console.table(getPokemonsByType("Water"))
 // console.table(getPokemonsByAttack("Water Gun"));
 // console.table(getAttacksByType("Fire"));
 // console.table(sortPokemonsByTypeThenName());
-// console.table(getWeakestEnemies("Water Gun"));
