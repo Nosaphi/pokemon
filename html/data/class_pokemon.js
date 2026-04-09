@@ -93,18 +93,19 @@ class Pokemon {
     }
 
     getBestFastAttacksForEnemy(print, pokemonName){
-        let pokemonEnnemi = pokemons.find(p => p.pokemon_name === pokemonName && p.form === "Normale");
+        let pokemonEnnemi = new Pokemon(pokemonName, "Normal");
         let degatsMax=0;
         let bestAttaque;
+        let efficacite;
         for(let attaque of this.attaquesRapides){
-            let typeAttaque = attaque.type;
-
-            let efficacite = typeAttaque.efficaciteContre(pokemon.types[0].nom);
-            if(pokemon.types.length===2){
-                efficacite = efficacite * typeAttaque.efficaciteContre(pokemon.types[1].nom);
+            let typeAttaque = new Type(attaque.type);
+            let typePokeEnnemi = pokemonEnnemi.getTypes();
+            efficacite = typeAttaque.efficaciteContre(typePokeEnnemi[0].nom);
+            if(typePokeEnnemi.length===2){
+                efficacite = efficacite * typeAttaque.efficaciteContre(typePokeEnnemi[1].nom);
             }
 
-            let degats = attaque.puissance * efficacite * (this.baseAttaque / pokemonEnnemi.base_defense)
+            let degats = attaque.puissance * efficacite * (this.baseAttaque / pokemonEnnemi.baseDefense)
             if(degats > degatsMax){
                 degatsMax = degats;
                 bestAttaque = attaque
@@ -119,7 +120,8 @@ class Pokemon {
 
 
 
-// let p = new Pokemon("Squirtle", "Normal");
-// console.table(p.getWeakestEnemies("Water Gun"));
+let p = new Pokemon("Charmeleon", "Normal");
+console.table(p.getBestFastAttacksForEnemy(true, "Bulbasaur"));
+
 
 export {Pokemon}
