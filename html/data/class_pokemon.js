@@ -117,6 +117,7 @@ class Pokemon {
         return bestAttaque;
     }
 }
+Pokemon.fill_all_pokemons();
 
 
 export {Pokemon}

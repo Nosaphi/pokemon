@@ -32,12 +32,17 @@ class Type {
     }   
 
     static fill_types() {
-        Type.all_types = Object.keys(typeEffectiveness).map(nom => new Type(nom));
+        Type.all_types = Object.fromEntries(
+            Object.keys(typeEffectiveness).map(
+                nom => [nom, new Type(nom)]
+            )
+        );
     }
 
     efficaciteContre(type){
         return this.listeType[type];
     }
 }
+Type.fill_types();
 
 export {Type}

@@ -2,24 +2,6 @@ import {Pokemon} from "../data/class_pokemon.js";
 import {Type} from "../data/class_type.js";
 import {Attack} from "../data/class_attack.js";
 
-
-console.log("Trois moutons suuur un fil")
-// function getPokemonsByAttack(attackName) {
-//     Pokemon.fill_all_pokemons();
-//     let listePokemon = []
-//     for (let pokemon of Pokemon.all_pokemons) {
-//         const toutesLesAttaques = pokemon.getAttacks().flat();
-//         for (let attaque of toutesLesAttaques){
-//             console.log(attaque)
-//             if (attaque.includes(attackName)) {
-//                 listePokemon.push(pokemon)
-//                 break
-//             }
-//         }
-//     }
-//     return listePokemon;
-// }
-
 function getPokemonsByType(typeName){
     Pokemon.fill_all_pokemons();
     let listePokemon = []
@@ -43,7 +25,6 @@ function getPokemonsByAttack(attackName){
     for (const pokemon of Pokemon.all_pokemons) {
         let attaques = pokemon.getAttacks();
         for (let attaque of attaques){
-            // console.log(attaque.id)
             if (attaque.nom === attackName){
                 listePokemon.push(pokemon)
             }
@@ -110,9 +91,5 @@ function sortPokemonsByTypeThenName(){
     return listePokemonTrie;
 }
 
+export {getPokemonsByType};
 
-
-// console.table(getPokemonsByType("Water"))
-// console.table(getPokemonsByAttack("Water Gun"));
-// console.table(getAttacksByType("Fire"));
-// console.table(sortPokemonsByTypeThenName());
