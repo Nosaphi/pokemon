@@ -119,9 +119,4 @@ class Pokemon {
 }
 
 
-
-let p = new Pokemon("Charmeleon", "Normal");
-console.table(p.getBestFastAttacksForEnemy(true, "Bulbasaur"));
-
-
 export {Pokemon}
