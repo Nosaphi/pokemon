@@ -58,7 +58,6 @@ class Pokemon {
         let attaquesRapides = dataAR.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesRapides = attaquesRapides; 
 
-
         let dataAC = monPokemon.charged_moves.map(f => charged_moves.find(m => m.name === f));
         let attaquesChargees = dataAC.map(m => new Attack(m.move_id, m.name, m.type, m.power, m.duration));
         this.attaquesChargees = attaquesChargees;

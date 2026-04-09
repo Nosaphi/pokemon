@@ -658,7 +658,7 @@ const charged_moves =
             "duration": 1600,
             "energy_delta": -33,
             "move_id": 100,
-            "name": "X Scissor",
+            "name": "X-Scissor",
             "power": 45,
             "stamina_loss_scaler": 0.08,
             "type": "Bug"
