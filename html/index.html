@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex</title>
     <link rel="stylesheet" href="style.css">
+    <script src="./jquery/jquery-3.7.1.min.js"></script>
 </head>
 <body>
     <header>
@@ -41,7 +42,7 @@
                         <th data-col="stamina">STA</th>
                         <th data-col="baseAttaque">ATK</th>
                         <th data-col="baseDefense">DEF</th>
-                        <th>Image</th>  
+                        <th>Image</th>
                     </tr>
                 </thead>
                 <tbody id="tbody-pokemons">
@@ -56,7 +57,6 @@
         </div>
     </main>
 
-
     <div id="overlay-detail" class="overlay hidden">
         <div id="popup-detail">
             <button id="btn-fermer-detail">x</button>
@@ -69,8 +69,6 @@
         <img id="img-grande" src="" alt="">
     </div>
 
-    <script src="./jquery/jquery-3.7.1.min.js"></script>
-    <script type="module" src="./js/script.js" defer></script>
-
+    <script type="module" src="./js/script.js"></script>
 </body>
 </html>
