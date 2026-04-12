@@ -9,17 +9,24 @@ let pageCourante  = 1;
 let colonneTriee  = null;
 let sensTriee     = "asc";
 
+// Transforme un id comme 7 en "007" pour construire le chemin vers l'image
 function cheminImage(id) {
-    const numero = String(id).padStart(3, "0");
-    return `webp/images/${numero}.webp`;
+    const numeroFormate = String(id).padStart(3, "0");
+    return `webp/images/${numeroFormate}.webp`;
 }
 
-function simplifier(texte) {
-    return texte.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+// Transforme un texte en minuscules sans accents (ex: "Pokémon" → "pokemon")
+// Utile pour que la recherche fonctionne même si l'utilisateur n'écrit pas les accents
+function supprimerAccents(texte) {
+    const enMinuscules = texte.toLowerCase();
+    const decompose    = enMinuscules.normalize("NFD"); // sépare les lettres de leurs accents
+    return decompose.replace(/[\u0300-\u036f]/g, "");   // supprime les accents isolés
 }
 
+// Remplit le menu déroulant des types à partir des pokémons chargés
 function remplirFiltreTypes() {
-    const typesExistants = new Set();
+    const typesExistants = new Set(); // Set = liste sans doublons
+
     for (const pokemon of Pokemon.all_pokemons) {
         for (const type of pokemon.types) {
             typesExistants.add(type.nom);
@@ -27,7 +34,9 @@ function remplirFiltreTypes() {
     }
 
     const select = document.querySelector("#filtre-type");
-    for (const nom of [...typesExistants].sort()) {
+    const typesTriesAlphabetiquement = Array.from(typesExistants).sort();
+
+    for (const nom of typesTriesAlphabetiquement) {
         const option = document.createElement("option");
         option.value = nom;
         option.textContent = nom;
@@ -35,8 +44,10 @@ function remplirFiltreTypes() {
     }
 }
 
+// Remplit le menu déroulant des attaques rapides à partir des pokémons chargés
 function remplirFiltreAttaques() {
     const attaquesExistantes = new Set();
+
     for (const pokemon of Pokemon.all_pokemons) {
         for (const attaque of pokemon.attaquesRapides) {
             attaquesExistantes.add(attaque.nom);
@@ -44,7 +55,9 @@ function remplirFiltreAttaques() {
     }
 
     const select = document.querySelector("#filtre-attaque");
-    for (const nom of [...attaquesExistantes].sort()) {
+    const attaquesTriesAlphabetiquement = Array.from(attaquesExistantes).sort();
+
+    for (const nom of attaquesTriesAlphabetiquement) {
         const option = document.createElement("option");
         option.value = nom;
         option.textContent = nom;
@@ -52,16 +65,17 @@ function remplirFiltreAttaques() {
     }
 }
 
+// Filtre la liste de pokémons selon les valeurs actuelles des filtres
 function appliquerFiltres() {
     const typeChoisi     = document.querySelector("#filtre-type").value;
     const attaqueChoisie = document.querySelector("#filtre-attaque").value;
-    const nomRecherche   = simplifier(document.querySelector("#filtre-nom").value.trim());
-    
+    const nomRecherche   = supprimerAccents(document.querySelector("#filtre-nom").value.trim());
+
     listeFiltree = Pokemon.all_pokemons.filter(pokemon => {
-        if (typeChoisi     && !pokemon.types.some(t => t.nom === typeChoisi))          return false;
-        if (attaqueChoisie && !pokemon.attaquesRapides.some(a => a.nom === attaqueChoisie)) return false;
-        if (nomRecherche   && !simplifier(pokemon.nom).includes(nomRecherche))         return false;
-        return true;
+        const aLeType    = !typeChoisi     || pokemon.types.some(t => t.nom === typeChoisi);
+        const aLAttaque  = !attaqueChoisie || pokemon.attaquesRapides.some(a => a.nom === attaqueChoisie);
+        const aLeNom     = !nomRecherche   || supprimerAccents(pokemon.nom).includes(nomRecherche);
+        return aLeType && aLAttaque && aLeNom;
     });
 
     pageCourante = 1;
@@ -69,6 +83,7 @@ function appliquerFiltres() {
     afficherPage();
 }
 
+// Gère le clic sur un en-tête de colonne : change la colonne triée ou inverse le sens
 function trierColonne(colonne) {
     if (colonneTriee === colonne) {
         sensTriee = sensTriee === "asc" ? "desc" : "asc";
@@ -80,13 +95,17 @@ function trierColonne(colonne) {
     mettreAJourFlechesTri();
 }
 
+// Trie la liste filtrée selon la colonne et le sens actuels, sans les changer
 function trierSansInverser() {
     listeFiltree.sort((a, b) => {
         let valeurA, valeurB;
 
         if (colonneTriee === "types") {
-            valeurA = [...a.types].map(t => t.nom).sort()[0] ?? "";
-            valeurB = [...b.types].map(t => t.nom).sort()[0] ?? "";
+            // Pour les types, on trie sur le premier type par ordre alphabétique
+            const typesA = a.types.map(t => t.nom).sort();
+            const typesB = b.types.map(t => t.nom).sort();
+            valeurA = typesA[0] || "";
+            valeurB = typesB[0] || "";
         } else {
             valeurA = a[colonneTriee];
             valeurB = b[colonneTriee];
@@ -96,18 +115,23 @@ function trierSansInverser() {
         if (typeof valeurA === "number" && typeof valeurB === "number") {
             comparaison = valeurA - valeurB;
         } else {
+            // localeCompare compare des textes en tenant compte des accents et de la langue
             comparaison = String(valeurA).localeCompare(String(valeurB));
         }
 
+        // Si les deux valeurs sont égales, on départage par le nom du pokémon
         if (comparaison === 0) comparaison = a.nom.localeCompare(b.nom);
+
         return sensTriee === "asc" ? comparaison : -comparaison;
     });
 }
 
+// Met à jour les flèches ↑ ↓ dans les en-têtes du tableau
 function mettreAJourFlechesTri() {
     document.querySelectorAll("#tableau-pokemons th").forEach(th => {
         th.classList.remove("tri-actif");
         th.removeAttribute("data-dir");
+
         if (th.dataset.col === colonneTriee) {
             th.classList.add("tri-actif");
             th.setAttribute("data-dir", sensTriee === "asc" ? "↑" : "↓");
@@ -115,6 +139,7 @@ function mettreAJourFlechesTri() {
     });
 }
 
+// Couleurs associées à chaque type de pokémon
 const couleurs = {
     Normal: "#9099a1", Fire: "#e62829", Water: "#2980ef",
     Grass: "#3fa129", Electric: "#fac000", Ice: "#3dcef3",
@@ -124,42 +149,50 @@ const couleurs = {
     Dark: "#624d4e", Steel: "#60a1b8", Fairy: "#ef70ef"
 };
 
+// Construit le fond coloré d'une ligne selon le ou les types du pokémon
+// Si un seul type : couleur unie transparente
+// Si deux types : rayures alternées des deux couleurs
+function construireFondLigne(pokemon) {
+    const nomType1 = pokemon.types[0] ? pokemon.types[0].nom : null;
+    const nomType2 = pokemon.types[1] ? pokemon.types[1].nom : null;
+
+    const couleur1 = couleurs[nomType1] || "#ffffff";
+
+    if (nomType2) {
+        const couleur2 = couleurs[nomType2] || "#ffffff";
+        return `repeating-linear-gradient(
+            90deg,
+            ${couleur1}70 0px, ${couleur1}70 10px,
+            ${couleur2}70 10px, ${couleur2}70 20px
+        )`;
+    } else {
+        return couleur1 + "70"; // "70" en hexadécimal = ~44% d'opacité (transparence)
+    }
+}
+
+// Affiche les pokémons de la page courante dans le tableau
 function afficherPage() {
     const total              = listeFiltree.length;
     const nbPages            = Math.max(1, Math.ceil(total / PAR_PAGE));
-    const debut              = (pageCourante - 1) * PAR_PAGE;
-    const pokemon_de_la_page = listeFiltree.slice(debut, debut + PAR_PAGE);
+    const indexDebut         = (pageCourante - 1) * PAR_PAGE;
+    const pokemonsDeLaPage   = listeFiltree.slice(indexDebut, indexDebut + PAR_PAGE);
 
     const tbody = document.querySelector("#tbody-pokemons");
     tbody.innerHTML = "";
 
-    for (const pokemon of pokemon_de_la_page) {
+    for (const pokemon of pokemonsDeLaPage) {
         const badgesTypes = pokemon.types
             .map(t => `<span class="badge-type type-${t.nom}">${t.nom}</span>`)
             .join("");
 
         const ligne = document.createElement("tr");
         ligne.dataset.pokemonId = pokemon.id;
-
-        const type1 = pokemon.types[0]?.nom;
-        const type2 = pokemon.types[1]?.nom;
-        const c1 = couleurs[type1] ?? "#ffffff";
-
-        if (type2) {
-            const c2 = couleurs[type2] ?? "#ffffff";
-            ligne.style.background = `repeating-linear-gradient(
-                90deg,
-                ${c1}70 0px, ${c1}70 10px,
-                ${c2}70 10px, ${c2}70 20px
-            )`;
-        } else {
-            ligne.style.background = c1 + "70";
-        }
+        ligne.style.background  = construireFondLigne(pokemon);
 
         ligne.innerHTML = `
             <td>${pokemon.id}</td>
             <td>${pokemon.nom}</td>
-            <td>${pokemon.generation ?? "?"}</td>
+            <td>${pokemon.generation !== null ? pokemon.generation : "?"}</td>
             <td>${badgesTypes}</td>
             <td>${pokemon.stamina}</td>
             <td>${pokemon.baseAttaque}</td>
@@ -179,18 +212,20 @@ function afficherPage() {
     document.querySelector("#btn-suiv").disabled = pageCourante >= nbPages;
 }
 
+// Ouvre la popup de détail pour un pokémon donné
 function afficherDetail(pokemonId) {
     const pokemon = Pokemon.all_pokemons.find(p => p.id === pokemonId);
     if (!pokemon) return;
 
-    const c1 = couleurs[pokemon.types[0]?.nom] ?? "#c5cae9";
-    const c2 = couleurs[pokemon.types[1]?.nom] ?? c1;
+    const couleur1 = couleurs[pokemon.types[0] ? pokemon.types[0].nom : null] || "#c5cae9";
+    const couleur2 = couleurs[pokemon.types[1] ? pokemon.types[1].nom : null] || couleur1;
 
+    // Colore la bordure de la popup avec les couleurs du pokémon
     const popupDetail = document.querySelector("#popup-detail");
-    popupDetail.style.borderTop    = `7px solid ${c1}`;
-    popupDetail.style.borderLeft   = `7px solid ${c1}`;
-    popupDetail.style.borderBottom = `7px solid ${c2}`;
-    popupDetail.style.borderRight  = `7px solid ${c2}`;
+    popupDetail.style.borderTop    = `7px solid ${couleur1}`;
+    popupDetail.style.borderLeft   = `7px solid ${couleur1}`;
+    popupDetail.style.borderBottom = `7px solid ${couleur2}`;
+    popupDetail.style.borderRight  = `7px solid ${couleur2}`;
 
     const badgesTypes = pokemon.types
         .map(t => `<span class="badge-type-popup type-${t.nom}">${t.nom}</span>`)
@@ -257,6 +292,7 @@ function fermerDetail() {
     document.querySelector("#overlay-detail").classList.add("hidden");
 }
 
+// Affiche l'image en grand près du curseur quand on survole une miniature
 function afficherGrandeImage(pokemonId, event) {
     document.querySelector("#img-grande").src = cheminImage(pokemonId);
     const popup = document.querySelector("#popup-image");
@@ -264,12 +300,18 @@ function afficherGrandeImage(pokemonId, event) {
     deplacerPopupImage(popup, event);
 }
 
+// Place la popup d'image près du curseur, en évitant qu'elle sorte de l'écran
 function deplacerPopupImage(popup, event) {
     const marge = 16;
     let x = event.clientX + marge;
     let y = event.clientY + marge;
-    if (x + popup.offsetWidth  > window.innerWidth)  x = event.clientX - popup.offsetWidth  - marge;
-    if (y + popup.offsetHeight > window.innerHeight) y = event.clientY - popup.offsetHeight - marge;
+
+    const depasse_a_droite = x + popup.offsetWidth  > window.innerWidth;
+    const depasse_en_bas   = y + popup.offsetHeight > window.innerHeight;
+
+    if (depasse_a_droite) x = event.clientX - popup.offsetWidth  - marge;
+    if (depasse_en_bas)   y = event.clientY - popup.offsetHeight - marge;
+
     popup.style.left     = x + "px";
     popup.style.top      = y + "px";
     popup.style.position = "fixed";
@@ -279,6 +321,7 @@ function masquerGrandeImage() {
     document.querySelector("#popup-image").classList.add("hidden");
 }
 
+// Point d'entrée : tout démarre ici quand la page est chargée
 document.addEventListener("DOMContentLoaded", () => {
 
     remplirFiltreTypes();
@@ -297,20 +340,22 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pageCourante < nbPages) { pageCourante++; afficherPage(); }
     });
 
+    // Clic sur une ligne du tableau → ouvre la popup de détail
     document.querySelector("#tbody-pokemons").addEventListener("click", e => {
-        if (e.target.closest(".miniature")) return;
+        if (e.target.closest(".miniature")) return; // ignore le clic sur l'image
         const ligne = e.target.closest("tr");
         if (ligne) afficherDetail(parseInt(ligne.dataset.pokemonId));
     });
 
     document.querySelector("#btn-fermer-detail").addEventListener("click", fermerDetail);
     document.querySelector("#overlay-detail").addEventListener("click", e => {
-        if (e.target.id === "overlay-detail") fermerDetail();
+        if (e.target.id === "overlay-detail") fermerDetail(); // ferme si on clique sur le fond
     });
     document.addEventListener("keydown", e => {
         if (e.key === "Escape") fermerDetail();
     });
 
+    // Survol des miniatures → affiche la grande image
     const popup = document.querySelector("#popup-image");
     document.addEventListener("mouseover", e => {
         const img = e.target.closest(".miniature");
@@ -323,6 +368,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.closest(".miniature")) masquerGrandeImage();
     });
 
+    // Clic sur un en-tête de colonne → trie le tableau
     document.querySelectorAll("#tableau-pokemons thead th[data-col]").forEach(th => {
         th.addEventListener("click", () => {
             trierColonne(th.dataset.col);
