@@ -81,7 +81,7 @@ class Pokemon {
         Attack.fill_attacks();
         let monAttaque = Attack.all_attacks.find(a => a.nom === attackName);
         let typeAttaque = new Type(monAttaque.type);
-        let efficaciteMin = -1;                         // Valeure plus petite que l'éfficacité min
+        let efficaciteMin = -1;                        
         for (const pokemon of Pokemon.all_pokemons) {
             let efficacite = typeAttaque.efficaciteContre(pokemon.types[0].nom);
             if(pokemon.types.length===2){
