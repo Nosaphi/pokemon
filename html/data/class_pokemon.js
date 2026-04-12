@@ -5,6 +5,7 @@ import { pokemon_moves } from './pokemon_moves.js'
 import { pokemon_types } from "./pokemon_types.js";
 import { fast_moves } from "./fast_moves.js";
 import { charged_moves } from "./charged_moves.js";
+import { generation } from "./generation.js"
 
 class Pokemon {
     static all_pokemons
@@ -15,6 +16,7 @@ class Pokemon {
         this.stamina = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_stamina;
         this.baseAttaque = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_attack;
         this.baseDefense = pokemons.find(p => p.pokemon_name === this.nom && p.form === this.form).base_defense;
+        this.generation = generation[this.id];
         this.types = [];
         this.attaquesRapides = [];
         this.attaquesChargees = [];
