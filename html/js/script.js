@@ -196,8 +196,17 @@ function afficherDetail(pokemonId) {
     const pokemon = Pokemon.all_pokemons.find(p => p.id === pokemonId);
     if (!pokemon) return;
 
+    const c1 = couleurs[pokemon.types[0]?.nom] ?? "#c5cae9";
+    const c2 = couleurs[pokemon.types[1]?.nom] ?? c1;
+
+    const popupDetail = document.querySelector("#popup-detail");
+    popupDetail.style.borderTop    = `7px solid ${c1}`;
+    popupDetail.style.borderLeft   = `7px solid ${c1}`;
+    popupDetail.style.borderBottom = `7px solid ${c2}`;
+    popupDetail.style.borderRight  = `7px solid ${c2}`;
+
     const badgesTypes = pokemon.types
-        .map(t => `<span class="badge-type type-${t.nom}">${t.nom}</span>`)
+        .map(t => `<span class="badge-type-popup type-${t.nom}">${t.nom}</span>`)
         .join(" ");
 
     const attaquesRapidesHTML = pokemon.attaquesRapides

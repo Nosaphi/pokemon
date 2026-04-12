@@ -8,59 +8,56 @@
     <script src="./jquery/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Pokédex</h1>
-        <div id="filtres">
-            <div class="filtre-groupe">
-                <label for="filtre-type">Type</label>
-                <select id="filtre-type">
-                    <option value="">— Tous —</option>
-                </select>
-            </div>
-            <div class="filtre-groupe">
-                <label for="filtre-attaque">Attaque rapide</label>
-                <select id="filtre-attaque">
-                    <option value="">— Toutes —</option>
-                </select>
-            </div>
-            <div class="filtre-groupe">
-                <label for="filtre-nom">Nom</label>
-                <input type="text" id="filtre-nom" placeholder="Rechercher…">
-            </div>
-        </div>
-    </header>
 
     <main>
-        <div id="pagination">
-            <button id="btn-prec">PREC</button>
-            <span id="info-page">Page 1 / 1</span>
-            <button id="btn-suiv">SUIV </button>
-        </div>
-        
-        <div id="tableau-wrapper">
-            <table id="tableau-pokemons">
-                <thead>
-                    <tr>
-                        <th data-col="id">#</th>
-                        <th data-col="nom">Nom</th>
-                        <th data-col="generation">Gén.</th>
-                        <th data-col="types">Types</th>
-                        <th data-col="stamina">STA</th>
-                        <th data-col="baseAttaque">ATK</th>
-                        <th data-col="baseDefense">DEF</th>
-                        <th>Image</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody-pokemons">
-                </tbody>
-            </table>
+
+        <div id="contenu-principal">
+            <div id="contenu-gauche">
+                <aside id="filtres-lateral">
+                    <div class="filtre-groupe">
+                        <label for="filtre-type">Type</label>
+                        <select id="filtre-type">
+                            <option value="">— Tous —</option>
+                        </select>
+                    </div>
+                    <div class="filtre-groupe">
+                        <label for="filtre-attaque">Attaque rapide</label>
+                        <select id="filtre-attaque">
+                            <option value="">— Toutes —</option>
+                        </select>
+                    </div>
+                    <div class="filtre-groupe">
+                        <label for="filtre-nom">Nom</label>
+                        <input type="text" id="filtre-nom" placeholder="Rechercher…">
+                    </div>
+                </aside>
+                <div id="pagination">
+                    <button id="btn-prec">PREC</button>
+                    <span id="info-page">Page 1 / 1</span>
+                    <button id="btn-suiv">SUIV </button>
+                </div>
+                <img id="logo"src="pokemon_logo.png" alt="">
+            </div>
+            <div id="tableau-wrapper">
+                <table id="tableau-pokemons">
+                    <thead>
+                        <tr>
+                            <th data-col="id">#</th>
+                            <th data-col="nom">Nom</th>
+                            <th data-col="generation">Gén.</th>
+                            <th data-col="types">Types</th>
+                            <th data-col="stamina">STA</th>
+                            <th data-col="baseAttaque">ATK</th>
+                            <th data-col="baseDefense">DEF</th>
+                            <th>Image</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-pokemons">
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div id="pagination">
-            <button id="btn-prec">PREC</button>
-            <span id="info-page">Page 1 / 1</span>
-            <button id="btn-suiv">SUIV </button>
-        </div>
     </main>
 
     <div id="overlay-detail" class="overlay hidden">
