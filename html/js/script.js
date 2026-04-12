@@ -315,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pageCourante < nbPages) { pageCourante++; afficherPage(); }
     });
 
-    // Clic sur une ligne → popup détail
+    // Clic sur une ligne affiche popup détail
     document.querySelector("#tbody-pokemons").addEventListener("click", e => {
         if (e.target.closest(".miniature")) return;
         const ligne = e.target.closest("tr");
@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Escape") fermerDetail();
     });
 
-    // Survol des miniatures → grande image
+    // Survol des miniatures affiche grande image
     const popup = document.querySelector("#popup-image");
     document.addEventListener("mouseover", e => {
         const img = e.target.closest(".miniature");
