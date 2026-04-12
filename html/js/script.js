@@ -2,28 +2,22 @@ import { Pokemon } from "../data/class_pokemon.js";
 import { Attack }  from "../data/class_attack.js";
 import { Type }    from "../data/class_type.js";
 
-// Nombre de pokémons affichés par page
 const PAR_PAGE = 25;
 
-// État global de la page
 let listeFiltree  = [...Pokemon.all_pokemons];
 let pageCourante  = 1;
 let colonneTriee  = null;
 let sensTriee     = "asc";
 
-// Retourne le chemin de l'image d'un pokémon selon son id
-// padStart(3, "0") transforme 1 en "001", 12 en "012", 123 en "123"
 function cheminImage(id) {
     const numero = String(id).padStart(3, "0");
     return `webp/images/${numero}.webp`;
 }
 
-// Enlève les accents et met en minuscules (pour la recherche par nom)
 function simplifier(texte) {
     return texte.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-// Remplit le menu déroulant des types
 function remplirFiltreTypes() {
     const typesExistants = new Set();
     for (const pokemon of Pokemon.all_pokemons) {
@@ -41,7 +35,6 @@ function remplirFiltreTypes() {
     }
 }
 
-// Remplit le menu déroulant des attaques rapides
 function remplirFiltreAttaques() {
     const attaquesExistantes = new Set();
     for (const pokemon of Pokemon.all_pokemons) {
@@ -59,7 +52,6 @@ function remplirFiltreAttaques() {
     }
 }
 
-// Filtre la liste selon les valeurs des menus et de la barre de recherche
 function appliquerFiltres() {
     const typeChoisi     = document.querySelector("#filtre-type").value;
     const attaqueChoisie = document.querySelector("#filtre-attaque").value;
@@ -77,7 +69,6 @@ function appliquerFiltres() {
     afficherPage();
 }
 
-// Trie la liste quand on clique sur un en-tête de colonne
 function trierColonne(colonne) {
     if (colonneTriee === colonne) {
         sensTriee = sensTriee === "asc" ? "desc" : "asc";
@@ -89,7 +80,6 @@ function trierColonne(colonne) {
     mettreAJourFlechesTri();
 }
 
-// Trie sans changer le sens (utilisé après un filtre)
 function trierSansInverser() {
     listeFiltree.sort((a, b) => {
         let valeurA, valeurB;
@@ -114,7 +104,6 @@ function trierSansInverser() {
     });
 }
 
-// Met à jour les flèches ↑ ↓ dans les en-têtes du tableau
 function mettreAJourFlechesTri() {
     document.querySelectorAll("#tableau-pokemons th").forEach(th => {
         th.classList.remove("tri-actif");
@@ -158,14 +147,13 @@ function afficherPage() {
 
         if (type2) {
             const c2 = couleurs[type2] ?? "#ffffff";
-            // Rayures diagonales des deux couleurs
             ligne.style.background = `repeating-linear-gradient(
                 90deg,
                 ${c1}70 0px, ${c1}70 10px,
                 ${c2}70 10px, ${c2}70 20px
             )`;
         } else {
-            ligne.style.background = c1 + "70"; // couleur unique, très transparente
+            ligne.style.background = c1 + "70";
         }
 
         ligne.innerHTML = `
@@ -191,7 +179,6 @@ function afficherPage() {
     document.querySelector("#btn-suiv").disabled = pageCourante >= nbPages;
 }
 
-// Ouvre la popup de détail d'un pokémon
 function afficherDetail(pokemonId) {
     const pokemon = Pokemon.all_pokemons.find(p => p.id === pokemonId);
     if (!pokemon) return;
@@ -270,7 +257,6 @@ function fermerDetail() {
     document.querySelector("#overlay-detail").classList.add("hidden");
 }
 
-// Affiche l'image en grand au survol d'une miniature
 function afficherGrandeImage(pokemonId, event) {
     document.querySelector("#img-grande").src = cheminImage(pokemonId);
     const popup = document.querySelector("#popup-image");
@@ -282,7 +268,6 @@ function deplacerPopupImage(popup, event) {
     const marge = 16;
     let x = event.clientX + marge;
     let y = event.clientY + marge;
-    // Si la popup dépasse à droite ou en bas, on la met de l'autre côté
     if (x + popup.offsetWidth  > window.innerWidth)  x = event.clientX - popup.offsetWidth  - marge;
     if (y + popup.offsetHeight > window.innerHeight) y = event.clientY - popup.offsetHeight - marge;
     popup.style.left     = x + "px";
@@ -294,19 +279,16 @@ function masquerGrandeImage() {
     document.querySelector("#popup-image").classList.add("hidden");
 }
 
-// --- Lancement quand la page est prête ---
 document.addEventListener("DOMContentLoaded", () => {
 
     remplirFiltreTypes();
     remplirFiltreAttaques();
     afficherPage();
 
-    // Filtres
     document.querySelector("#filtre-type").addEventListener("change", appliquerFiltres);
     document.querySelector("#filtre-attaque").addEventListener("change", appliquerFiltres);
     document.querySelector("#filtre-nom").addEventListener("input", appliquerFiltres);
 
-    // Pagination
     document.querySelector("#btn-prec").addEventListener("click", () => {
         if (pageCourante > 1) { pageCourante--; afficherPage(); }
     });
@@ -315,14 +297,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (pageCourante < nbPages) { pageCourante++; afficherPage(); }
     });
 
-    // Clic sur une ligne affiche popup détail
     document.querySelector("#tbody-pokemons").addEventListener("click", e => {
         if (e.target.closest(".miniature")) return;
         const ligne = e.target.closest("tr");
         if (ligne) afficherDetail(parseInt(ligne.dataset.pokemonId));
     });
 
-    // Fermeture de la popup détail
     document.querySelector("#btn-fermer-detail").addEventListener("click", fermerDetail);
     document.querySelector("#overlay-detail").addEventListener("click", e => {
         if (e.target.id === "overlay-detail") fermerDetail();
@@ -331,7 +311,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.key === "Escape") fermerDetail();
     });
 
-    // Survol des miniatures affiche grande image
     const popup = document.querySelector("#popup-image");
     document.addEventListener("mouseover", e => {
         const img = e.target.closest(".miniature");
@@ -344,7 +323,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.target.closest(".miniature")) masquerGrandeImage();
     });
 
-    // Tri par colonne
     document.querySelectorAll("#tableau-pokemons thead th[data-col]").forEach(th => {
         th.addEventListener("click", () => {
             trierColonne(th.dataset.col);
