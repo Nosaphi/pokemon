@@ -126,7 +126,15 @@ function mettreAJourFlechesTri() {
     });
 }
 
-// Affiche les pokémons de la page courante dans le tableau
+const couleurs = {
+    Normal: "#9099a1", Fire: "#e62829", Water: "#2980ef",
+    Grass: "#3fa129", Electric: "#fac000", Ice: "#3dcef3",
+    Fighting: "#ff8000", Poison: "#9141cb", Ground: "#915121",
+    Flying: "#81b9ef", Psychic: "#ef4179", Bug: "#91a119",
+    Rock: "#afa981", Ghost: "#704170", Dragon: "#5060e1",
+    Dark: "#624d4e", Steel: "#60a1b8", Fairy: "#ef70ef"
+};
+
 function afficherPage() {
     const total              = listeFiltree.length;
     const nbPages            = Math.max(1, Math.ceil(total / PAR_PAGE));
@@ -143,6 +151,23 @@ function afficherPage() {
 
         const ligne = document.createElement("tr");
         ligne.dataset.pokemonId = pokemon.id;
+
+        const type1 = pokemon.types[0]?.nom;
+        const type2 = pokemon.types[1]?.nom;
+        const c1 = couleurs[type1] ?? "#ffffff";
+
+        if (type2) {
+            const c2 = couleurs[type2] ?? "#ffffff";
+            // Rayures diagonales des deux couleurs
+            ligne.style.background = `repeating-linear-gradient(
+                90deg,
+                ${c1}70 0px, ${c1}70 10px,
+                ${c2}70 10px, ${c2}70 20px
+            )`;
+        } else {
+            ligne.style.background = c1 + "70"; // couleur unique, très transparente
+        }
+
         ligne.innerHTML = `
             <td>${pokemon.id}</td>
             <td>${pokemon.nom}</td>
@@ -176,11 +201,17 @@ function afficherDetail(pokemonId) {
         .join(" ");
 
     const attaquesRapidesHTML = pokemon.attaquesRapides
-        .map(a => `<span class="attaque-chip">${a.nom} <small>(${a.type})</small></span>`)
+        .map(a => {
+            const c = couleurs[a.type];
+            return `<span class="attaque-chip" style="background:${c}70; border-color:${c}">${a.nom} <small>(${a.type})</small></span>`;
+        })
         .join("");
 
     const attaquesChargeesHTML = pokemon.attaquesChargees
-        .map(a => `<span class="attaque-chip">${a.nom} <small>(${a.type})</small></span>`)
+        .map(a => {
+            const c = couleurs[a.type];
+            return `<span class="attaque-chip" style="background:${c}70; border-color:${c}">${a.nom} <small>(${a.type})</small></span>`;
+        })
         .join("");
 
     document.querySelector("#contenu-detail").innerHTML = `
