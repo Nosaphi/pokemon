@@ -39,8 +39,16 @@ class Pokemon {
     }
 
     static fill_all_pokemons() {
-        Pokemon.all_pokemons = pokemons.map(pokemon => 
-            new Pokemon(pokemon.pokemon_name, pokemon.form)
+        const seen = new Map();
+        for (const p of pokemons) {
+            if (!seen.has(p.pokemon_id)) {
+                seen.set(p.pokemon_id, p);
+            } else if (p.form === "Normal") {
+                seen.set(p.pokemon_id, p);
+            }
+        }
+        Pokemon.all_pokemons = [...seen.values()].map(p =>
+            new Pokemon(p.pokemon_name, p.form)
         );
     }
 

@@ -64,7 +64,7 @@ function appliquerFiltres() {
     const typeChoisi     = document.querySelector("#filtre-type").value;
     const attaqueChoisie = document.querySelector("#filtre-attaque").value;
     const nomRecherche   = simplifier(document.querySelector("#filtre-nom").value.trim());
-
+    
     listeFiltree = Pokemon.all_pokemons.filter(pokemon => {
         if (typeChoisi     && !pokemon.types.some(t => t.nom === typeChoisi))          return false;
         if (attaqueChoisie && !pokemon.attaquesRapides.some(a => a.nom === attaqueChoisie)) return false;
