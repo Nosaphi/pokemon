@@ -437,11 +437,96 @@ main {
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 680px) {
-    #contenu-principal { flex-direction: column; }
-    #filtres-lateral { width: 100%; position: static; }
-    #tableau-wrapper { height: auto; }
-    main { height: auto; overflow: auto; }
-    #tableau-pokemons th, #tableau-pokemons td { padding: 6px 8px; font-size: 12px; }
-    #popup-detail { padding: 18px 16px; }
+@media (max-width: 900px) {
+
+    main{
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    #logo {
+        display: block;
+        margin: 0 auto 16px auto;
+        width: 200px;
+    }
+
+    #contenu-principal, #contenu-gauche {
+        flex-direction: column;
+    }
+
+    #contenu-gauche {
+        width: 100%;
+    }
+
+    #filtres-lateral {
+        width: 100%;
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .filtre-groupe {
+        flex: 1;
+        min-width: 140px;
+    }
+
+    #pagination {
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #pagination button {
+        width: auto;
+    }
+
+    #tableau-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: auto;  /* ← scroll vertical sur le tableau uniquement */
+        height: calc(100vh - 32px);  /* 32px = padding haut + bas du main */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #tableau-pokemons {
+        min-width: 600px;
+    }
+
+    #tableau-pokemons th,
+    #tableau-pokemons td {
+        padding: 6px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    main { padding: 8px; }
+
+    /* Filtres en colonne sur mobile */
+    #filtres-lateral {
+        flex-direction: column;
+    }
+
+    .filtre-groupe {
+        min-width: 100%;
+    }
+
+    /* Popup plein écran */
+    #popup-detail {
+        width: 100vw;
+        max-width: 100vw;
+        max-height: 100vh;
+        border-radius: 0;
+        padding: 16px;
+    }
+
+    /* Attaques sur une colonne */
+    .attaque-chip {
+        width: 100%;
+    }
+
+    /* Stats plus compactes */
+    .stat-item .stat-val {
+        font-size: 16px;
+    }
 }
