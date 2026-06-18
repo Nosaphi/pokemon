@@ -1,6 +1,3 @@
-import { fast_moves } from "./fast_moves.js";
-import { charged_moves } from "./charged_moves.js"; 
-
 class Attack{
     static all_attacks;
     constructor(move_id, nom, type, puissance, duree) {
@@ -25,5 +22,3 @@ class Attack{
     }
 }
 Attack.fill_attacks()
-
-export {Attack}

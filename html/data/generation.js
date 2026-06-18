@@ -16,5 +16,3 @@ for (const [debut, fin, gen] of bornes) {
         generation[id] = gen;
     }
 }
-
-export { generation };

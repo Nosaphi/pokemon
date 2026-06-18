@@ -1,6 +1,3 @@
-import { Pokemon } from "../data/class_pokemon.js";
-import { Attack }  from "../data/class_attack.js";
-import { Type }    from "../data/class_type.js";
 
 const PAR_PAGE = 25;
 

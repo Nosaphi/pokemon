@@ -1,7 +1,3 @@
-import {Pokemon} from "../data/class_pokemon.js";
-import {Type} from "../data/class_type.js";
-import {Attack} from "../data/class_attack.js";
-
 function getPokemonsByType(typeName){
     Pokemon.fill_all_pokemons();
     let listePokemon = []
@@ -90,6 +86,4 @@ function sortPokemonsByTypeThenName(){
     }
     return listePokemonTrie;
 }
-
-export {getPokemonsByType};
 

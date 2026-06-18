@@ -18295,5 +18295,3 @@ const pokemon_moves =
         "pokemon_name": "Calyrex"
     }
 ];
-
-export { pokemon_moves };

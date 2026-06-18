@@ -1,12 +1,3 @@
-import { Attack } from "./class_attack.js";
-import { Type } from "./class_type.js";
-import { pokemons } from "./pokemons.js";
-import { pokemon_moves } from './pokemon_moves.js'
-import { pokemon_types } from "./pokemon_types.js";
-import { fast_moves } from "./fast_moves.js";
-import { charged_moves } from "./charged_moves.js";
-import { generation } from "./generation.js"
-
 class Pokemon {
     static all_pokemons
     constructor(nom, forme) {
@@ -127,6 +118,3 @@ class Pokemon {
     }
 }
 Pokemon.fill_all_pokemons();
-
-
-export {Pokemon}

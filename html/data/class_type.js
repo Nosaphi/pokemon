@@ -1,11 +1,9 @@
-import { typeEffectiveness } from "./type_effectiveness.js";
-
 class Type {
     static all_types;
 
     constructor(nom) {
         this.nom = nom;
-        this.listeType = typeEffectiveness[this.nom];
+        this.listeType = type_effectiveness[this.nom];
     }
 
     toString() {
@@ -33,7 +31,7 @@ class Type {
 
     static fill_types() {
         Type.all_types = Object.fromEntries(
-            Object.keys(typeEffectiveness).map(
+            Object.keys(type_effectiveness).map(
                 nom => [nom, new Type(nom)]
             )
         );
@@ -44,5 +42,3 @@ class Type {
     }
 }
 Type.fill_types();
-
-export {Type}

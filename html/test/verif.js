@@ -1,7 +1,3 @@
-import {Pokemon} from "../data/class_pokemon.js";
-import {Type} from "../data/class_type.js";
-import {Attack} from "../data/class_attack.js";
-import {getPokemonsByType} from "./test.js";
 
 console.log("Tous les Pokemons");
 console.log(Pokemon.all_pokemons);

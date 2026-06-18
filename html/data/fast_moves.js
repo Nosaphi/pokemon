@@ -640,5 +640,3 @@ const fast_moves =
             "type": "Normal"
         }
     ];
-
-export {fast_moves};
